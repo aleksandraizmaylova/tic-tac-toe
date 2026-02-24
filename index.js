@@ -50,6 +50,52 @@ function cellClickHandler (row, col) {
     }
 }
 
+
+function winnerDetected(field) {
+    for (let i = 0; i < 3; i++) {
+        if (
+            field[i][0] !== null &&
+            field[i][0] === field[i][1] &&
+            field[i][0] === field[i][2]
+        ) {
+            alert("Победил " + field[i][0]);
+            return true;
+        }
+    }
+
+    for (let j = 0; j < 3; j++) {
+        if (
+            field[0][j] !== null &&
+            field[0][j] === field[1][j] &&
+            field[1][j] === field[2][j]
+        ) {
+            alert("Победил " + field[0][j]);
+            return true;
+        }
+    }
+
+    if (
+        field[0][0] !== null &&
+        field[0][0] === field[1][1] &&
+        field[1][1] === field[2][2]
+    ) {
+        alert("Победил " + field[0][0]);
+        return true;
+    }
+
+    if (
+        field[0][2] !== null &&
+        field[0][2] === field[1][1] &&
+        field[1][1] === field[2][0]
+    ) {
+        alert("Победил " + field[0][2]);
+        return true;
+    }
+
+    return false;
+}
+
+
 function renderSymbolInCell (symbol, row, col, color = '#333') {
     const targetCell = findCell(row, col);
 
