@@ -3,6 +3,7 @@ const ZERO = 'O';
 const EMPTY = ' ';
 let current = CROSS;
 let remainingCells = 9;
+let winner = null;
 
 const field = [
     [null, null, null],
@@ -37,7 +38,7 @@ function renderGrid (dimension) {
 
 function cellClickHandler (row, col) {
     console.log(`Clicked on cell: ${row}, ${col}`);
-    if (field[row][col] !== null) {
+    if (field[row][col] !== null || winner !== null) {
         return
     }
     field[row][col] = current;
@@ -47,6 +48,17 @@ function cellClickHandler (row, col) {
     remainingCells--;
     if (remainingCells === 0) {
         alert("Победила дружба")
+    }
+    winner = winnerDetected(field);
+    if (winner !== null){
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if (field[i][j] === winner) {
+                    console.log(i,j)
+                    renderSymbolInCell(winner, i, j, '#ff0000');
+                }
+            }
+        }
     }
 }
 
@@ -59,7 +71,7 @@ function winnerDetected(field) {
             field[i][0] === field[i][2]
         ) {
             alert("Победил " + field[i][0]);
-            return true;
+            return field[i][0];
         }
     }
 
@@ -70,7 +82,7 @@ function winnerDetected(field) {
             field[1][j] === field[2][j]
         ) {
             alert("Победил " + field[0][j]);
-            return true;
+            return field[0][j];
         }
     }
 
@@ -80,7 +92,7 @@ function winnerDetected(field) {
         field[1][1] === field[2][2]
     ) {
         alert("Победил " + field[0][0]);
-        return true;
+        return field[0][0];
     }
 
     if (
@@ -89,10 +101,10 @@ function winnerDetected(field) {
         field[1][1] === field[2][0]
     ) {
         alert("Победил " + field[0][2]);
-        return true;
+        return field[0][2];
     }
 
-    return false;
+    return null;
 }
 
 
@@ -114,6 +126,15 @@ function addResetListener () {
 }
 
 function resetClickHandler () {
+    winner = null;
+    remainingCells = 9;
+    current = CROSS;
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            field[i][j] = null;
+            renderSymbolInCell(EMPTY, i, j);
+        }
+    }
     console.log('reset!');
 }
 
