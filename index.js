@@ -1,6 +1,12 @@
 const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
+let current = CROSS;
+const field = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+]
 
 const container = document.getElementById('fieldWrapper');
 
@@ -26,9 +32,28 @@ function renderGrid (dimension) {
     }
 }
 
+// class Field{
+//     /**
+//      * @param {number} rows 
+//      * @param {number} cols 
+//      * @param {number} [fillValue=0] 
+//      */
+
+//     constructor(row, column){
+//         this.row = row;
+//         this.column = column;
+//     }
+
+    
+// }
+
 function cellClickHandler (row, col) {
     // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
+    field[row, col] = current;
+
+    current = current === CROSS ? ZERO : CROSS;
+    console.log(field);
 
 
     /* Пользоваться методом для размещения символа в клетке так:
