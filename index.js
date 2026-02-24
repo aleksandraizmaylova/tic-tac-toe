@@ -46,9 +46,6 @@ function cellClickHandler (row, col) {
     renderSymbolInCell(current, row, col);
     current = current === CROSS ? ZERO : CROSS;
     remainingCells--;
-    if (remainingCells === 0) {
-        alert("Победила дружба")
-    }
     winner = winnerDetected(field);
     if (winner !== null){
         for (let i = 0; i < 3; i++) {
@@ -59,6 +56,10 @@ function cellClickHandler (row, col) {
                 }
             }
         }
+        return
+    }
+    if (remainingCells === 0) {
+        alert("Победила дружба")
     }
 }
 
